@@ -1,3 +1,5 @@
 id = "amusement_recreation"
-name = "Amusement and Recreation Parks"
-description = "Theme parks, arcades, and other leisure facilities."
+name = "Amusement and Recreation"
+description = (
+    "Amusement parks, arcades, recreational facilities, and entertainment venues."
+)
