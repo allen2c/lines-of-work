@@ -1,0 +1,1 @@
+# lines_of_work/industries/agriculture_natural_resources/crop_cultivation/cerrado_harvest_soy_operations/__init__.py
