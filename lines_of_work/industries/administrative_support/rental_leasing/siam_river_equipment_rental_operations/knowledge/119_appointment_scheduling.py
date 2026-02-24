@@ -1,0 +1,7 @@
+title = "Appointment Scheduling for Pickup"
+
+content = """
+Reference material for Appointment Scheduling for Pickup. Covers operational protocols, standards, and best practices for equipment rental operations at Siam River.
+"""  # noqa: E501
+
+version = "0.0.1"
