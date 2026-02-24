@@ -43,13 +43,13 @@ All four items are mandatory. A work module missing any of them will load partia
 ### `work_id`
 
 - **Format:** `snake_case`
-- **Represents:** one specific partial duty handled by an agent *within* a named entity — e.g. the concierge function at a particular hotel, the loan desk at a particular bank, the triage role at a particular clinic
-- **Length:** 2–6 words joined with underscores; include both the entity name and the duty
-- **Style:** evocative entity name + a clear duty suffix
+- **Represents:** a cohesive set of related duties handled by an agent *within* a named entity — e.g. the front desk operations at a particular hotel, the loan and credit desk at a particular bank, the patient intake function at a particular clinic
+- **Length:** 2–6 words joined with underscores; include both the entity name and the functional role area
+- **Style:** evocative entity name + a clear role-area suffix; the suffix names a functional unit, not a single micro-task
 - **Stable:** once published, IDs must not be renamed (consumers depend on them)
 
-Good examples: `fantasy_moon_hotel_concierge`, `neon_circuit_labs_code_review`, `azure_peak_university_admissions`, `iron_veil_security_patrol_dispatch`
-Bad examples: `hotel_concierge` (entity not named), `fantasy_moon_hotel` (duty not specified), `FantasyMoonConcierge` (wrong case)
+Good examples: `fantasy_moon_hotel_front_desk`, `neon_circuit_labs_engineering`, `azure_peak_university_admissions`, `iron_veil_security_operations`
+Bad examples: `hotel_front_desk` (entity not named), `fantasy_moon_hotel` (role area not specified), `FantasyMoonFrontDesk` (wrong case)
 
 ### `knowledge_id`
 
@@ -75,16 +75,48 @@ Likewise, `knowledge/__init__.py` is empty.
 
 ## 5. `agent.py` — Partial Duty Definition
 
-`agent.py` defines the identity and operating scope of the agent handling **one specific duty** within its parent entity. The agent is not the whole entity — it is a focused function: the concierge, the code-review desk, the admissions office, the triage nurse. It is loaded eagerly when a `Work` object is constructed.
+`agent.py` defines the identity and operating scope of the agent handling **a cohesive set of related duties** within its parent entity. The agent is not the whole entity — it is a functional role area: the front desk, the engineering team, the admissions office, the patient intake unit. Duties grouped into one agent should share the same context, knowledge domain, and communication style. It is loaded eagerly when a `Work` object is constructed.
 
 ### Required module-level variables
 
 ```python
 name: str          # "<Entity Name> — <Duty>" (e.g. "Fantasy Moon Hotel — Concierge")
-description: str   # one or two sentences: what entity this belongs to and what this duty covers
-instructions: str  # the full system-prompt scoped to this duty only
+description: str   # one or two sentences: what entity this belongs to and what duties this agent covers
+instructions: str  # the full system-prompt scoped to these duties
+language: str      # BCP 47 code for the agent's default operating language (e.g. "en", "zh-Hans")
 version: str       # semantic version string, default "0.0.1"
 ```
+
+### Choosing a Default Language
+
+Every agent operates in one primary language. Choose the language that best matches the entity's real-world market and audience. The supported languages and their BCP 47 codes are:
+
+| #  | Language                       | Code      | Primary Context                                                  |
+|----|--------------------------------|-----------|------------------------------------------------------------------|
+| 1  | English                        | `en`      | Global business, science, and the internet                       |
+| 2  | Mandarin Chinese (Simplified)  | `zh-Hans` | Mainland China, Singapore, global supply chains                  |
+| 3  | Spanish                        | `es`      | Latin American markets, US Hispanic population                   |
+| 4  | French                         | `fr`      | Diplomacy, high-growth emerging markets in Africa                |
+| 5  | Mandarin Chinese (Traditional) | `zh-Hant` | Taiwan semiconductors, Hong Kong finance, overseas communities   |
+| 6  | German                         | `de`      | European engineering, manufacturing, EU economy                  |
+| 7  | Arabic                         | `ar`      | Energy sectors, sovereign wealth funds, Middle Eastern diplomacy |
+| 8  | Japanese                       | `ja`      | R&D, robotics, automotive, global media                          |
+| 9  | Hindi                          | `hi`      | India's domestic market and tech outsourcing                     |
+| 10 | Portuguese                     | `pt`      | Brazil's commodities and South American trade                    |
+| 11 | Russian                        | `ru`      | Energy, aerospace, Central Asian influence                       |
+| 12 | Korean                         | `ko`      | Consumer electronics, semiconductors, global entertainment       |
+| 13 | Italian                        | `it`      | Luxury goods, fashion, industrial design, culinary               |
+| 14 | Bengali                        | `bn`      | South Asian demographics, textile and manufacturing              |
+| 15 | Indonesian                     | `id`      | Southeast Asia's largest economy, digital markets                |
+| 16 | Turkish                        | `tr`      | Europe–Asia bridge, regional logistics and construction          |
+| 17 | Vietnamese                     | `vi`      | Manufacturing shift, global supply chains                        |
+| 18 | Urdu                           | `ur`      | South Asian trade and diaspora networks                          |
+| 19 | Swahili                        | `sw`      | East African trade, one of the fastest-growing regions           |
+| 20 | Thai                           | `th`      | Tourism, automotive manufacturing, Southeast Asian logistics     |
+| 21 | Polish                         | `pl`      | Central and Eastern European manufacturing and logistics         |
+| 22 | Dutch                          | `nl`      | International maritime trade, European legal and logistics hubs  |
+
+If the entity genuinely operates in multiple languages (e.g. a multilingual UN agency), choose the language of its primary operating context and note the others in `description`. Do not attempt to cover multiple languages in a single `agent.py` — create separate work modules for each language variant instead.
 
 ### Minimal template
 
@@ -99,13 +131,14 @@ description = (
 
 instructions = """
 You are the code review agent for Neon Circuit Labs — a boutique software research
-studio known for precision engineering and open-source tooling. Your sole duty is
-to review code contributions and return clear, constructive, standard-aligned feedback.
+studio known for precision engineering and open-source tooling. Your duties cover
+the full engineering workflow: code review, technical design feedback, and
+implementation guidance for contributors and internal engineers.
 
-## Scope of This Duty
-You review pull requests submitted to Neon Circuit Labs repositories. You do not
-manage deployments, respond to support tickets, or make architectural decisions
-outside of what is directly visible in the diff under review.
+## Scope of Duties
+You handle code reviews, pull-request feedback, architecture discussions within
+active work items, and implementation guidance. You do not manage deployments,
+respond to user support tickets, or make product roadmap decisions.
 
 ## Review Standards
 ...
@@ -120,6 +153,8 @@ outside of what is directly visible in the diff under review.
 ...
 """
 
+language = "en"
+
 version = "0.0.1"
 ```
 
@@ -132,17 +167,17 @@ version = "0.0.1"
 | Tone           | First-person, authoritative, professional.                                                                   |
 | Structure      | Use Markdown headings (`##`) to organize sections.                                                           |
 
-**Recommended sections** (adapt as appropriate for the duty):
+**Recommended sections** (adapt as appropriate for the role area):
 
-1. **Scope of This Duty** — what this agent is responsible for and, equally important, what it is *not* responsible for.
-2. **Parent Entity Context** — a brief description of the entity this duty belongs to, so the agent can speak in character.
-3. **Core Tasks** — the 5–10 specific actions this agent performs.
-4. **Domain Knowledge Required** — the expertise needed to carry out this duty well.
+1. **Scope of Duties** — what this agent is responsible for and, equally important, what it is *not* responsible for.
+2. **Parent Entity Context** — a brief description of the entity this role belongs to, so the agent can speak in character.
+3. **Core Tasks** — the 5–10 specific actions this agent performs across its duties.
+4. **Domain Knowledge Required** — the expertise needed to carry out these duties well.
 5. **Tone and Communication Style** — how this agent speaks to the people it serves.
 6. **Decision Criteria** — how the agent evaluates requests, prioritizes, or makes judgments within its scope.
-7. **Escalation and Handoff** — what falls outside this duty and how to direct it appropriately.
+7. **Escalation and Handoff** — what falls outside these duties and how to direct it appropriately.
 
-The goal is a prompt scoped tightly enough that the agent knows exactly what it is responsible for, and rich enough that it can handle any task within that duty accurately and in character.
+The goal is a prompt scoped tightly enough that the agent knows exactly what it is responsible for, and rich enough that it can handle any task within those duties accurately and in character.
 
 ---
 
@@ -243,8 +278,9 @@ Consumers may depend on version strings to cache or invalidate loaded content.
 
 Before opening a pull request, confirm all of the following:
 
-- [ ] `work_id` is `snake_case`, evocatively named, and uniquely identifies this entity within its subcategory.
-- [ ] `agent.py` is present with all four variables (`name`, `description`, `instructions`, `version`).
+- [ ] `work_id` is `snake_case`, follows `<entity>_<role_area>` format, and uniquely identifies this agent within its subcategory.
+- [ ] `agent.py` is present with all five variables (`name`, `description`, `instructions`, `language`, `version`).
+- [ ] `language` is a valid BCP 47 code from the supported language list.
 - [ ] `instructions` is between 512 and 2048 tokens.
 - [ ] `knowledge/__init__.py` is present (empty).
 - [ ] At least 20 knowledge items exist.

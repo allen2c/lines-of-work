@@ -2,10 +2,10 @@
 
 ## What Is This?
 
-`lines-of-work` is a Python library of agent definitions, each scoped to one specific partial duty within a distinctively named entity — the concierge at a fantasy hotel, the code-review desk at a boutique studio, the admissions office at a named university. Each *work* ships with two resources:
+`lines-of-work` is a Python library of agent definitions, each covering a cohesive set of related duties within a distinctively named entity — the front desk at a fantasy hotel, the engineering team at a boutique studio, the admissions office at a named university. Each *work* ships with two resources:
 
-- **Agent** — a persona prompt tightly scoped to one duty within one named entity, ready to plug into any LLM-powered agent framework.
-- **Knowledge base** — a curated set of topical entries covering the domain expertise required to carry out that duty.
+- **Agent** — a persona prompt scoped to a functional role area within one named entity, ready to plug into any LLM-powered agent framework.
+- **Knowledge base** — a curated set of topical entries covering the domain expertise required to carry out those duties.
 
 The library is organized as a three-level taxonomy:
 
@@ -48,7 +48,7 @@ work = low.Work(
 # Agent
 print(work.agent.name)          # "Silver Lotus Clinic — Triage"
 print(work.agent.description)   # what entity + what duty
-print(work.agent.instructions)  # persona prompt scoped to this duty (up to 2048 tokens)
+print(work.agent.instructions)  # persona prompt scoped to these duties (up to 2048 tokens)
 
 # Knowledge
 for kid in work.list_knowledge_ids():
@@ -69,7 +69,8 @@ for kid in work.list_knowledge_ids():
 | --- | --- | --- |
 | `name` | `str` | `"<Entity> — <Duty>"` (e.g. `"Fantasy Moon Hotel — Concierge"`). |
 | `description` | `str` | What entity this belongs to and what specific duty this agent covers. |
-| `instructions` | `str` | Persona prompt scoped to this duty within this entity. Up to 2048 tokens. |
+| `instructions` | `str` | Persona prompt scoped to a functional role area within this entity. Up to 2048 tokens. |
+| `language` | `str` | BCP 47 code for the agent's default operating language. Default `"en"`. |
 | `version` | `str` | Semantic version, default `"0.0.1"`. |
 
 ### `Knowledge`

@@ -4,7 +4,7 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/lines-of-work.svg)](https://pypi.org/project/lines-of-work/)
 [![License](https://img.shields.io/pypi/l/lines-of-work.svg)](https://opensource.org/licenses/MIT)
 
-A structured Python library of agent definitions, each scoped to one specific partial duty within a distinctively named entity — organized by industry and subcategory, each shipping with a focused persona prompt and a curated knowledge base.
+A structured Python library of agent definitions, each covering a cohesive set of related duties within a distinctively named entity — organized by industry and subcategory, each shipping with a focused persona prompt and a curated knowledge base.
 
 ## Documentation
 

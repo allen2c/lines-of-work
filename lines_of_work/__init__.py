@@ -74,6 +74,7 @@ class Work:
             name=agent_mod.name,
             description=agent_mod.description,
             instructions=agent_mod.instructions,
+            language=getattr(agent_mod, "language", "en"),
             version=getattr(agent_mod, "version", "0.0.1"),
         )
 

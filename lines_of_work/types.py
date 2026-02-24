@@ -12,6 +12,7 @@ class Agent(BaseModel):
     name: str
     description: str
     instructions: str
+    language: str = "en"
     version: str = "0.0.1"
 
 
