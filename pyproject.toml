@@ -1,26 +1,20 @@
 [project]
 authors = [{ name = "Allen Chou", email = "f1470891079@gmail.com" }]
-dependencies = [
-  "dictpress (>=0.3.0)",
-  "openai (>=1,<2)",
-  "openai-agents (>=0.1.0,<1.0.0)",
-  "pydantic (>=2)",
-  "str-or-none",
-]
-description = "AllenChou's Python template."
+dependencies = ["pydantic (>=2)"]
+description = "All lines of work."
 license = { text = "MIT" }
-name = "ac-py-template"
+name = "lines-of-work"
 readme = "README.md"
 requires-python = ">=3.11,<4"
-version = "0.1.0"
+version = "0.0.1"
 
 [project.urls]
-Homepage = "https://github.com/allen2c/ac-py-template"
-"PyPI" = "https://pypi.org/project/ac-py-template/"
-Repository = "https://github.com/allen2c/ac-py-template"
+Homepage = "https://github.com/allen2c/lines-of-work"
+"PyPI" = "https://pypi.org/project/lines-of-work/"
+Repository = "https://github.com/allen2c/lines-of-work"
 
 [tool.poetry]
-packages = [{ include = "ac_py_template" }]
+packages = [{ include = "lines_of_work" }]
 
 [tool.poetry.extras]
 all = []
