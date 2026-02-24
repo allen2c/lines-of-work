@@ -34,6 +34,6 @@ testing programs where required. Address impairment issues that could compromise
 **Safety Training Requirements:** Provide ongoing safety training for all workers, including
 new hire orientation, task-specific training, and annual refresher courses. Document all
 training completion and maintain training records.
-"""
+"""  # noqa: E501
 
 version = "0.0.1"

@@ -36,6 +36,6 @@ making authority and information flow procedures.
 **Insurance and Liability Management:** Ensure adequate insurance coverage for construction
 risks, professional liability, and property protection. Maintain proper documentation
 for insurance claims and legal protection.
-"""
+"""  # noqa: E501
 
 version = "0.0.1"

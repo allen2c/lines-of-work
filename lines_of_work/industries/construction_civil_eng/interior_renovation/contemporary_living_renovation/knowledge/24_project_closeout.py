@@ -30,6 +30,6 @@ post-completion support and contact information.
 **Project Archival:** Maintain complete project records for future reference, warranty claims,
 and continuous improvement. Include photographic documentation, correspondence, and financial
 records for comprehensive project history.
-"""
+"""  # noqa: E501
 
 version = "0.0.1"
