@@ -245,7 +245,7 @@ version = "0.0.1"
 | Property      | Requirement                                                                                                                                                                                                                   |
 |---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Minimum items | **20** per work                                                                                                                                                                                                               |
-| Maximum items | **99** per work                                                                                                                                                                                                              |
+| Maximum items | **99** per work                                                                                                                                                                                                               |
 | Coverage      | Items should span the full breadth of the role — foundational concepts, advanced techniques, tools, processes, regulations, soft skills, and common failure modes.                                                            |
 | Ordering      | IDs are discovered alphabetically from the filesystem. Design IDs so that alphabetical order produces a coherent reading sequence when useful (e.g., prefix with a two-digit number: `01_foundations`, `02_data_structures`). |
 
