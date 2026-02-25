@@ -1,0 +1,13 @@
+title = "Pre-Weld Preparation: Fit-Up, Cleaning, and Preheat"
+
+content = """
+The quality of a weld begins before the arc is struck. Pre-weld preparation—fit-up, surface cleaning, and preheating when required—determines whether the weld will be sound and meet specification requirements. At Ridgecrest Metalworks, the welder is responsible for verifying all pre-weld conditions before welding.
+
+Fit-up accuracy is the geometric alignment of the pieces to be joined. Dimensions checked include root opening (gap), root face, groove angle, alignment (mismatch or offset of the joined pieces at the joint, also called high-low), and squareness. Allowable tolerances are specified in the WPS and applicable code (AWS D1.1, ASME Section IX, etc.). Excessive root opening wastes filler metal and increases the risk of burn-through; insufficient root opening prevents root penetration. Mismatch (high-low) causes stress concentrations in the completed joint. Fixtures, clamps, and tack welds (small holding welds) maintain fit-up during welding.
+
+Surface cleanliness is essential for weld quality. The weld zone (typically 1 inch / 25 mm each side of the joint) must be free from: mill scale (for root passes and critical welds—scale can trap gas and cause porosity), oil and grease (cause porosity and carbon contamination), rust (causes porosity), moisture (hydrogen source—causes cracking), paint and coatings (generate toxic fumes and cause porosity). Cleaning methods include grinding, wire brushing, solvent wiping, and mechanical descaling. For stainless steel, carbon steel wire brushes and grinding tools contaminate the surface with iron particles that cause corrosion; only stainless steel brushes and dedicated grinding wheels must be used.
+
+Preheat refers to heating the base metal to a minimum temperature before welding. Preheat is required for medium and high-carbon steels, alloy steels, and thick sections to: slow the cooling rate of the weld and HAZ (preventing martensite formation and hydrogen cracking), reduce thermal gradient and residual stress, and allow hydrogen to diffuse out of the weld area. Minimum preheat temperatures are specified by the WPS and calculated from the steel's carbon equivalent (CE). Temperature is measured with temperature-indicating crayons (Tempilstick), digital contact thermometers, or infrared pyrometers at a point 3 inches from the joint. Preheat must be maintained through the entire welding operation; interpass temperature (maximum temperature between passes) must also be controlled to prevent grain growth in some alloys.
+"""
+
+version = "0.0.1"
