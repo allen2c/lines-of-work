@@ -31,7 +31,7 @@ lines_of_work/industries/<industry_id>/<subcategory_id>/<work_id>/
     ├── __init__.py
     ├── <knowledge_id>.py
     ├── <knowledge_id>.py
-    └── ...              (20 – 500 files)
+    └── ...              (20 – 99 files)
 ```
 
 All four items are mandatory. A work module missing any of them will load partially or raise errors at runtime.
@@ -245,7 +245,7 @@ version = "0.0.1"
 | Property      | Requirement                                                                                                                                                                                                                   |
 |---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Minimum items | **20** per work                                                                                                                                                                                                               |
-| Maximum items | **500** per work                                                                                                                                                                                                              |
+| Maximum items | **99** per work                                                                                                                                                                                                               |
 | Coverage      | Items should span the full breadth of the role — foundational concepts, advanced techniques, tools, processes, regulations, soft skills, and common failure modes.                                                            |
 | Ordering      | IDs are discovered alphabetically from the filesystem. Design IDs so that alphabetical order produces a coherent reading sequence when useful (e.g., prefix with a two-digit number: `01_foundations`, `02_data_structures`). |
 
