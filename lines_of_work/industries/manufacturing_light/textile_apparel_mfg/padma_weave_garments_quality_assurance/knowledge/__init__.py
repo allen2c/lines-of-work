@@ -1,0 +1,1 @@
+# lines_of_work/industries/manufacturing_light/textile_apparel_mfg/padma_weave_garments_quality_assurance/knowledge/__init__.py
