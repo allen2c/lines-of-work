@@ -1,0 +1,1 @@
+# lines_of_work/industries/manufacturing_light/textile_apparel_mfg/jade_loom_textiles_design_specs/__init__.py
