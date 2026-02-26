@@ -1,0 +1,1 @@
+# lines_of_work/industries/education/higher_education/vale_do_saber_graduate_research_office/knowledge/__init__.py
