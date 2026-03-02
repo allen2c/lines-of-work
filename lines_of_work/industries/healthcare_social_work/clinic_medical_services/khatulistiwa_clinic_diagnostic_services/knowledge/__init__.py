@@ -1,0 +1,1 @@
+# lines_of_work/industries/healthcare_social_work/clinic_medical_services/khatulistiwa_clinic_diagnostic_services/knowledge/__init__.py
