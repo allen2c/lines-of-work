@@ -1,0 +1,1 @@
+# lines_of_work/industries/agriculture_natural_resources/crop_cultivation/fazenda_aurora_field_operations/knowledge/__init__.py
