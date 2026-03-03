@@ -1,0 +1,1 @@
+# lines_of_work/industries/manufacturing_light/wood_furniture_mfg/serrana_verde_mobiliario_producao/__init__.py

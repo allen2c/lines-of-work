@@ -1,0 +1,1 @@
+# lines_of_work/industries/real_estate/real_estate_sales_leasing/sukhumvit_residences_sales_leasing/knowledge/__init__.py
