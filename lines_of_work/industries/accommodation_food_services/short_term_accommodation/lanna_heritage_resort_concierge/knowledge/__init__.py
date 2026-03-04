@@ -1,0 +1,1 @@
+# lines_of_work/industries/accommodation_food_services/short_term_accommodation/lanna_heritage_resort_concierge/knowledge/__init__.py
