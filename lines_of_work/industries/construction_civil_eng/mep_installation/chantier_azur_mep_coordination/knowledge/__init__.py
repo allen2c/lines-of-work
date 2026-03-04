@@ -1,0 +1,1 @@
+# lines_of_work/industries/construction_civil_eng/mep_installation/chantier_azur_mep_coordination/knowledge/__init__.py
