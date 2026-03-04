@@ -1,3 +1,5 @@
+import hashlib
+
 import pytest
 
 import lines_of_work as low
@@ -19,7 +21,14 @@ def test_read_all_works(
     assert work.agent
     assert work.agent.name
     assert work.agent.instructions
+
+    count = 0
+    knowledge_md5_set = set()
     for knowledge_id in work.list_knowledge_ids():
+        count += 1
         knowledge = work.get_knowledge(knowledge_id)
         assert knowledge.title
         assert knowledge.content
+        knowledge_md5_set.add(hashlib.md5(knowledge.content.encode()).hexdigest())
+
+    assert len(knowledge_md5_set) == count
