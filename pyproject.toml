@@ -45,6 +45,18 @@ max-line-length = 88
 [tool.pytest.ini_options]
 env = ["ENVIRONMENT=test", "PYTEST_IS_RUNNING=true"]
 
+[tool.pyright]
+exclude = [
+  "**/.venv",
+  "**/__pycache__",
+  "**/build",
+  "**/dist",
+  "**/node_modules",
+  "**/venv",
+  "lines_of_work",
+]
+typeCheckingMode = "off"
+
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=2.0.0,<3.0.0"]
