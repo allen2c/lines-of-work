@@ -1,0 +1,1 @@
+# lines_of_work/industries/accommodation_food_services/short_term_accommodation/oasis_pearl_resort_front_desk/__init__.py
