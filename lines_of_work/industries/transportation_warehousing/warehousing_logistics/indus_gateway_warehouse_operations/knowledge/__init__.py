@@ -1,0 +1,1 @@
+# lines_of_work/industries/transportation_warehousing/warehousing_logistics/indus_gateway_warehouse_operations/knowledge/__init__.py
