@@ -1,0 +1,1 @@
+# lines_of_work/industries/manufacturing_heavy_tech/pharma_biotech_mfg/serra_verde_farmacos_regulatory_affairs/__init__.py

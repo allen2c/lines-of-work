@@ -1,0 +1,1 @@
+# lines_of_work/industries/other_services/laundry_personal_services/maji_mawingu_laundry_operations/__init__.py
