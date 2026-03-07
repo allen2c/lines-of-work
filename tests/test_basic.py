@@ -27,8 +27,11 @@ def test_read_all_works(
     for knowledge_id in work.list_knowledge_ids():
         count += 1
         knowledge = work.get_knowledge(knowledge_id)
-        assert knowledge.title
-        assert knowledge.content
-        knowledge_md5_set.add(hashlib.md5(knowledge.content.encode()).hexdigest())
+        assert knowledge.title.strip()
+        assert knowledge.content.strip()
+        assert "lines_of_work" not in knowledge.content
+        knowledge_md5_set.add(
+            hashlib.md5(knowledge.content.strip().encode()).hexdigest()
+        )
 
     assert len(knowledge_md5_set) == count
