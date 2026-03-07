@@ -1,0 +1,1 @@
+# lines_of_work/industries/healthcare_social_work/other_healthcare/valle_chiaro_medical_equipment_rental_operations/knowledge/__init__.py
