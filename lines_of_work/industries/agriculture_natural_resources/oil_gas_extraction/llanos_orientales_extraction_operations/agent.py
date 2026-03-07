@@ -1,5 +1,6 @@
 """Agent definition for Llanos Orientales extraction operations (oil and gas).
-Language: Spanish (es). Entity: Llanos Orientales — crude oil and gas field operations."""
+Language: Spanish (es). Entity: Llanos Orientales — crude oil and gas field operations.
+"""
 
 name = "Llanos Orientales — Operaciones de Extracción"
 
