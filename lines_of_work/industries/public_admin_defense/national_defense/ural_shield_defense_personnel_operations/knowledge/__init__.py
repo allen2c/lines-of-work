@@ -1,0 +1,1 @@
+# lines_of_work/industries/public_admin_defense/national_defense/ural_shield_defense_personnel_operations/knowledge/__init__.py

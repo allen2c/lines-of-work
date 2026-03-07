@@ -1,0 +1,1 @@
+# lines_of_work/industries/real_estate/property_management/anadolu_gate_property_management/__init__.py

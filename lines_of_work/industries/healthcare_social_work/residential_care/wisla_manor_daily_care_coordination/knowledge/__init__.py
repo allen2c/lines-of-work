@@ -1,0 +1,1 @@
+# lines_of_work/industries/healthcare_social_work/residential_care/wisla_manor/knowledge/__init__.py
