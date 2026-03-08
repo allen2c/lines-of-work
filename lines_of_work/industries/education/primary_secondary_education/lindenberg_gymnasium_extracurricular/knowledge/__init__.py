@@ -1,0 +1,1 @@
+# lines_of_work/industries/education/primary_secondary_education/lindenberg_gymnasium_extracurricular/knowledge/__init__.py

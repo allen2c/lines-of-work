@@ -1,5 +1,6 @@
 import importlib
 import pkgutil
+from typing import TYPE_CHECKING, Optional, Union
 
 from lines_of_work.types import (
     Agent,
@@ -12,6 +13,10 @@ from lines_of_work.types import (
     WorkID,
 )
 from lines_of_work.version import __version__
+
+if TYPE_CHECKING:
+    import agents
+    from google_language_support import LanguageCodes
 
 __all__ = [
     "__version__",
@@ -59,6 +64,13 @@ def list_work_ids(
         return []
 
 
+def get_all_works() -> list["Work"]:
+    for industry_id in list_industry_ids():
+        for subcategory_id in list_subcategory_ids(industry_id):
+            for work_id in list_work_ids(industry_id, subcategory_id):
+                yield Work(industry_id, subcategory_id, work_id)
+
+
 class Work:
     def __init__(
         self,
@@ -95,3 +107,11 @@ class Work:
             content=mod.content,
             version=getattr(mod, "version", "0.0.1"),
         )
+
+    def generate_open_queries(self, *, k: int = 3, language: Optional["LanguageCodes"] = None, openai_model: Union["agents.OpenAIResponsesModel", "agents.OpenAIChatCompletionsModel"]) -> list[str]:
+        agent_instructions: str,
+        *,
+        top_k: int = 3,
+        language: LanguageCodes = LanguageCodes.ENGLISH,
+        openai_client: OpenAI,
+        model: str = "gpt-5-mini",
