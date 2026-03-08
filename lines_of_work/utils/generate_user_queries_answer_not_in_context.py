@@ -3,15 +3,8 @@ import logging
 from textwrap import dedent
 from typing import Optional, Union
 
-from agents import (
-    FunctionTool,
-    ModelSettings,
-    ModelTracing,
-    OpenAIChatCompletionsModel,
-    OpenAIResponsesModel,
-)
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel
 from google_language_support import LanguageCodes
-from openai.types.responses import ResponseFunctionToolCall
 
 logger = logging.getLogger(__name__)
 
@@ -65,36 +58,30 @@ async def generate_user_queries_answer_not_in_context(
         """  # noqa: E501
     )
 
-    model_response = await openai_model.get_response(
-        system_instructions=f"## Agent Instructions\n{agent_instructions}\n\n## Knowledge Context\n{knowledge_context}",  # noqa: E501
-        input=[{"role": "user", "content": user_content}],
-        model_settings=ModelSettings(tool_choice="required"),
-        tools=[
-            FunctionTool(
-                name=tool["function"]["name"],
-                description=tool["function"]["description"],
-                params_json_schema=tool["function"]["parameters"],
-                on_invoke_tool=lambda ctx, args_str: None,
-            )
+    chat_completion = await openai_model._client.chat.completions.create(
+        model=openai_model.model,
+        messages=[
+            {
+                "role": "system",
+                "content": f"## Agent Instructions\n{agent_instructions}\n\n## Knowledge Context\n{knowledge_context}",  # noqa: E501
+            },
+            {"role": "user", "content": user_content},
         ],
-        handoffs=[],
-        tracing=ModelTracing.DISABLED,
-        output_schema=None,
+        tools=[tool],
+        tool_choice="required",
     )
-
-    for response_output_item in model_response.output:
-        if isinstance(response_output_item, ResponseFunctionToolCall):
-            arg_data = json.loads(response_output_item.arguments)
-            queries = arg_data["queries"]
-            if len(queries) < k:
-                logger.warning(
-                    f"Only {len(queries)} queries generated, but {k} are required. "
-                    f"Returning all {len(queries)} queries."
-                )
-            return queries[:k]
-
-        else:
-            raise ValueError(f"Unexpected response output item: {response_output_item}")
-
-    else:
+    if not chat_completion.choices or not chat_completion.choices[0].message.tool_calls:
         raise ValueError("Unexpected completion — no tool call returned")
+
+    tool_call = chat_completion.choices[0].message.tool_calls[0]
+    if tool_call.type != "function":
+        raise ValueError("Unexpected tool call type — expected function")
+
+    arg_data: dict = json.loads(tool_call.function.arguments)
+    queries = arg_data["queries"]
+    if len(queries) < k:
+        logger.warning(
+            f"Only {len(queries)} queries generated, but {k} are required. "
+            f"Returning all {len(queries)} queries."
+        )
+    return queries[:k]
