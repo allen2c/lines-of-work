@@ -1,6 +1,5 @@
 import json
 import logging
-import random
 from textwrap import dedent
 from typing import Optional, Union
 
@@ -17,36 +16,17 @@ from openai.types.responses import ResponseFunctionToolCall
 logger = logging.getLogger(__name__)
 
 
-async def generate_open_queries(
+async def generate_user_queries_answer_in_context(
     agent_instructions: str,
+    knowledge_context: str,
     k: int = 3,
     *,
     language: Optional["LanguageCodes"] = None,
     openai_model: Union["OpenAIResponsesModel", "OpenAIChatCompletionsModel"],
 ) -> list[str]:
+    from lines_of_work.utils.get_random_language import get_random_language
 
-    language = language or random.choice(
-        [
-            LanguageCodes.ENGLISH,
-            LanguageCodes.CHINESE_SIMPLIFIED,
-            LanguageCodes.CHINESE_TRADITIONAL,
-            LanguageCodes.HINDI,
-            LanguageCodes.SPANISH,
-            LanguageCodes.FRENCH,
-            LanguageCodes.BENGALI,
-            LanguageCodes.RUSSIAN,
-            LanguageCodes.PORTUGUESE,
-            LanguageCodes.INDONESIAN,
-            LanguageCodes.GERMAN,
-            LanguageCodes.JAPANESE,
-            LanguageCodes.MARATHI,
-            LanguageCodes.TELUGU,
-            LanguageCodes.TURKISH,
-            LanguageCodes.TAMIL,
-            LanguageCodes.VIETNAMESE,
-            LanguageCodes.THAI,
-        ]
-    )
+    language = language or get_random_language()
 
     tool: dict = {
         "type": "function",
@@ -71,35 +51,23 @@ async def generate_open_queries(
     }
 
     user_content = dedent(
-        f"""Generate **exactly {k}** diverse, natural, and realistic user queries that a real user in this agent's **broad domain** would commonly ask.
+        f"""Using ONLY the Knowledge Context provided above, generate **exactly {k}** user queries.
 
-        Important requirements:
-        - First infer the general **domain / topic / area** from the Agent Instructions (examples: weather → meteorology & daily life, recipe bot → cooking & food, fitness coach → exercise & health, etc.)
-        - Questions should feel like very plausible, common questions someone might ask an assistant / app / expert / service operating in that domain
-        - The questions can be **somewhat general** and are allowed to go beyond the exact scope/tools described in the Agent Instructions
-        - They should still feel like realistic things people actually ask in that space
-
-        Requirements:
-        - Vary significantly in topic (within the domain), phrasing, length, and tone (casual, serious, beginner, impatient, detailed, vague, etc.)
-        - Sound like authentic, everyday questions a real person might ask
-        - Do NOT make the questions extremely narrow or hyper-specific to capabilities explicitly listed in the instructions — aim for broader domain-typical questions
+        Strict requirements:
+        - The complete answer to each question MUST be directly findable and fully answerable from the Knowledge Context
+        - Do not create questions that require any information outside the given context
 
         All queries must be written in **{language.to_instruction()}**.
 
-        Respond ONLY by calling the tool `generate_user_queries_for_agent`.
-        Do not output any additional text.
+        Make the questions natural, varied, and realistic. These will be used to test whether the agent can correctly retrieve and use the provided knowledge.
+
+        Respond ONLY by calling the tool `generate_user_queries_for_agent`. Do not output any additional text.
         """  # noqa: E501
-    ).strip()
+    )
 
     model_response = await openai_model.get_response(
-        system_instructions="You are a taciturn",
-        input=[
-            {
-                "role": "system",
-                "content": f"## Agent Instructions\n{agent_instructions}",
-            },
-            {"role": "user", "content": user_content},
-        ],
+        system_instructions=f"## Agent Instructions\n{agent_instructions}\n\n## Knowledge Context\n{knowledge_context}",  # noqa: E501
+        input=[{"role": "user", "content": user_content}],
         model_settings=ModelSettings(tool_choice="required"),
         tools=[
             FunctionTool(

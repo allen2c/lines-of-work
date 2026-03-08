@@ -121,7 +121,7 @@ class Work:
     ) -> str:
         import random
 
-        from lines_of_work.utils.truncate_str import truncate_str
+        from .utils.truncate_str import truncate_str
 
         all_knowledge = list(self.iter_all_knowledge())
         random.shuffle(all_knowledge)
@@ -136,19 +136,45 @@ class Work:
 
     async def generate_open_queries(
         self,
-        *,
         k: int = 3,
+        *,
         language: Optional["LanguageCodes"] = None,
         openai_model: Union[
             "agents.OpenAIResponsesModel", "agents.OpenAIChatCompletionsModel"
         ],
     ) -> list[str]:
-        from lines_of_work.utils.generate_agent_open_queries import (
+        from .utils.generate_agent_open_queries import (
             generate_open_queries,
         )
 
         return await generate_open_queries(
             agent_instructions=self.agent.instructions,
+            k=k,
+            language=language,
+            openai_model=openai_model,
+        )
+
+    async def generate_user_queries_answer_in_context(
+        self,
+        k: int = 3,
+        *,
+        max_tokens: int = 4096,
+        encoding: Optional["tiktoken.Encoding"] = None,
+        language: Optional["LanguageCodes"] = None,
+        openai_model: Union[
+            "agents.OpenAIResponsesModel", "agents.OpenAIChatCompletionsModel"
+        ],
+    ) -> list[str]:
+        from .utils.generate_user_queries_answer_in_context import (
+            generate_user_queries_answer_in_context,
+        )
+
+        return await generate_user_queries_answer_in_context(
+            agent_instructions=self.agent.instructions,
+            knowledge_context=self.sample_knowledge_context(
+                max_tokens=max_tokens,
+                encoding=encoding,
+            ),
             k=k,
             language=language,
             openai_model=openai_model,
