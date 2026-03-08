@@ -117,11 +117,17 @@ class Work:
             yield self.get_knowledge(knowledge_id)
 
     def sample_knowledge_context(
-        self, *, max_tokens: int = 4096, encoding: Optional["tiktoken.Encoding"] = None
+        self,
+        *,
+        max_tokens: int = 4096,
+        encoding: Optional["tiktoken.Encoding"] = None,
+        seed: Optional[int] = None,
     ) -> str:
         import random
 
         from .utils.truncate_str import truncate_str
+
+        random = random if seed is None else random.Random(seed)
 
         all_knowledge = list(self.iter_all_knowledge())
         random.shuffle(all_knowledge)
@@ -164,6 +170,7 @@ class Work:
         openai_model: Union[
             "agents.OpenAIResponsesModel", "agents.OpenAIChatCompletionsModel"
         ],
+        seed: Optional[int] = None,
     ) -> list[str]:
         from .utils.generate_user_queries_answer_in_context import (
             generate_user_queries_answer_in_context,
@@ -174,6 +181,35 @@ class Work:
             knowledge_context=self.sample_knowledge_context(
                 max_tokens=max_tokens,
                 encoding=encoding,
+                seed=seed,
+            ),
+            k=k,
+            language=language,
+            openai_model=openai_model,
+        )
+
+    async def generate_user_queries_answer_not_in_context(
+        self,
+        k: int = 3,
+        *,
+        max_tokens: int = 4096,
+        encoding: Optional["tiktoken.Encoding"] = None,
+        language: Optional["LanguageCodes"] = None,
+        openai_model: Union[
+            "agents.OpenAIResponsesModel", "agents.OpenAIChatCompletionsModel"
+        ],
+        seed: Optional[int] = None,
+    ) -> list[str]:
+        from .utils.generate_user_queries_answer_not_in_context import (
+            generate_user_queries_answer_not_in_context,
+        )
+
+        return await generate_user_queries_answer_not_in_context(
+            agent_instructions=self.agent.instructions,
+            knowledge_context=self.sample_knowledge_context(
+                max_tokens=max_tokens,
+                encoding=encoding,
+                seed=seed,
             ),
             k=k,
             language=language,
