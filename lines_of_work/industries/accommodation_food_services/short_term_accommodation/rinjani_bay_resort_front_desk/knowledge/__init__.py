@@ -1,0 +1,1 @@
+# lines_of_work/industries/accommodation_food_services/short_term_accommodation/rinjani_bay_resort_front_desk/knowledge/__init__.py
