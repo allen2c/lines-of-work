@@ -22,6 +22,7 @@ all = []
 [tool.poetry.group.dev.dependencies]
 black = { extras = ["jupyter"], version = "*" }
 codepress = "*"
+google-language-support = ">=0.3.0,<1.0.0"
 isort = "*"
 openai = "*"
 openai-agents = "*"

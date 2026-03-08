@@ -1,6 +1,7 @@
 import importlib
+import logging
 import pkgutil
-from typing import TYPE_CHECKING, Optional, Union
+from typing import TYPE_CHECKING, Generator, Optional, Union
 
 from lines_of_work.types import (
     Agent,
@@ -17,6 +18,8 @@ from lines_of_work.version import __version__
 if TYPE_CHECKING:
     import agents
     from google_language_support import LanguageCodes
+
+logger = logging.getLogger(__name__)
 
 __all__ = [
     "__version__",
@@ -64,7 +67,7 @@ def list_work_ids(
         return []
 
 
-def get_all_works() -> list["Work"]:
+def iter_all_works() -> Generator["Work", None, None]:
     for industry_id in list_industry_ids():
         for subcategory_id in list_subcategory_ids(industry_id):
             for work_id in list_work_ids(industry_id, subcategory_id):
@@ -108,10 +111,22 @@ class Work:
             version=getattr(mod, "version", "0.0.1"),
         )
 
-    def generate_open_queries(self, *, k: int = 3, language: Optional["LanguageCodes"] = None, openai_model: Union["agents.OpenAIResponsesModel", "agents.OpenAIChatCompletionsModel"]) -> list[str]:
-        agent_instructions: str,
+    async def generate_open_queries(
+        self,
         *,
-        top_k: int = 3,
-        language: LanguageCodes = LanguageCodes.ENGLISH,
-        openai_client: OpenAI,
-        model: str = "gpt-5-mini",
+        k: int = 3,
+        language: Optional["LanguageCodes"] = None,
+        openai_model: Union[
+            "agents.OpenAIResponsesModel", "agents.OpenAIChatCompletionsModel"
+        ],
+    ) -> list[str]:
+        from lines_of_work.utils.generate_agent_open_queries import (
+            generate_open_queries,
+        )
+
+        return await generate_open_queries(
+            agent_instructions=self.agent.instructions,
+            k=k,
+            language=language,
+            openai_model=openai_model,
+        )
