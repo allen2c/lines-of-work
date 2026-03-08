@@ -19,6 +19,10 @@ if TYPE_CHECKING:
     import agents
     import tiktoken
     from google_language_support import LanguageCodes
+    from openai_embeddings_model import (
+        AsyncOpenAIEmbeddingsModel,
+    )
+    from openai_embeddings_model import ModelSettings as EmbeddingsModelSettings
 
 logger = logging.getLogger(__name__)
 
@@ -221,3 +225,34 @@ class Work:
             language=language,
             openai_model=openai_model,
         )
+
+    async def retrieve_knowledge(
+        self,
+        query: str,
+        *,
+        top_k: int = 3,
+        openai_embeddings_model: "AsyncOpenAIEmbeddingsModel",
+        model_settings: "EmbeddingsModelSettings",
+    ) -> list["Knowledge"]:
+        if not query:
+            raise ValueError("Query is required")
+
+        knowledge_documents: list[Knowledge] = list(self.iter_all_knowledge())
+
+        if not knowledge_documents:
+            raise ValueError(f"No knowledge documents found in work {self.agent.name}")
+
+        similarity_res = await openai_embeddings_model.get_similarity(
+            query=query,
+            documents=[
+                f"{k.title}\n\n{k.content}".strip() for k in knowledge_documents
+            ],
+            model_settings=model_settings,
+        )
+
+        ranked_knowledge_documents = [
+            knowledge_documents[r.index] for r in similarity_res.results
+        ]
+        ranked_knowledge_documents = ranked_knowledge_documents[:top_k]
+
+        return ranked_knowledge_documents
