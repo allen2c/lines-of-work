@@ -17,6 +17,7 @@ from lines_of_work.version import __version__
 
 if TYPE_CHECKING:
     import agents
+    import tiktoken
     from google_language_support import LanguageCodes
 
 logger = logging.getLogger(__name__)
@@ -109,6 +110,28 @@ class Work:
             title=mod.title,
             content=mod.content,
             version=getattr(mod, "version", "0.0.1"),
+        )
+
+    def iter_all_knowledge(self) -> Generator[Knowledge, None, None]:
+        for knowledge_id in self.list_knowledge_ids():
+            yield self.get_knowledge(knowledge_id)
+
+    def sample_knowledge_context(
+        self, *, max_tokens: int = 4096, encoding: Optional["tiktoken.Encoding"] = None
+    ) -> str:
+        import random
+
+        from lines_of_work.utils.truncate_str import truncate_str
+
+        all_knowledge = list(self.iter_all_knowledge())
+        random.shuffle(all_knowledge)
+
+        return truncate_str(
+            "\n\n".join(
+                [f"### {k.title}\n\n{k.content}" for k in all_knowledge]
+            ).strip(),
+            max_tokens=max_tokens,
+            encoding=encoding,
         )
 
     async def generate_open_queries(
