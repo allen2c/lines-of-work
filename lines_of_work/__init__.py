@@ -163,6 +163,7 @@ class Work:
     async def generate_user_queries_answer_in_context(
         self,
         k: int = 3,
+        knowledge_context: Optional[str] = None,
         *,
         max_tokens: int = 4096,
         encoding: Optional["tiktoken.Encoding"] = None,
@@ -176,13 +177,15 @@ class Work:
             generate_user_queries_answer_in_context,
         )
 
+        knowledge_context = knowledge_context or self.sample_knowledge_context(
+            max_tokens=max_tokens,
+            encoding=encoding,
+            seed=seed,
+        )
+
         return await generate_user_queries_answer_in_context(
             agent_instructions=self.agent.instructions,
-            knowledge_context=self.sample_knowledge_context(
-                max_tokens=max_tokens,
-                encoding=encoding,
-                seed=seed,
-            ),
+            knowledge_context=knowledge_context,
             k=k,
             language=language,
             openai_model=openai_model,
@@ -191,6 +194,7 @@ class Work:
     async def generate_user_queries_answer_not_in_context(
         self,
         k: int = 3,
+        knowledge_context: Optional[str] = None,
         *,
         max_tokens: int = 4096,
         encoding: Optional["tiktoken.Encoding"] = None,
@@ -204,13 +208,15 @@ class Work:
             generate_user_queries_answer_not_in_context,
         )
 
+        knowledge_context = knowledge_context or self.sample_knowledge_context(
+            max_tokens=max_tokens,
+            encoding=encoding,
+            seed=seed,
+        )
+
         return await generate_user_queries_answer_not_in_context(
             agent_instructions=self.agent.instructions,
-            knowledge_context=self.sample_knowledge_context(
-                max_tokens=max_tokens,
-                encoding=encoding,
-                seed=seed,
-            ),
+            knowledge_context=knowledge_context,
             k=k,
             language=language,
             openai_model=openai_model,
