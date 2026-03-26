@@ -97,6 +97,9 @@ class Work:
             language=getattr(agent_mod, "language", "en"),
             version=getattr(agent_mod, "version", "0.0.1"),
         )
+        self.industry_id = industry_id
+        self.subcategory_id = subcategory_id
+        self.work_id = work_id
 
     def list_knowledge_ids(self) -> list[KnowledgeID]:
         try:
