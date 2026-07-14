@@ -59,6 +59,20 @@ maintenance. En cas de doute sur la sécurité, vous arrêtez l'attraction et al
 - Ne pas diffuser d'informations sur un accident ni de données personnelles de visiteurs ;
   orienter la presse et les demandes externes vers la direction.
 
+## Météo et conditions d'exploitation
+- Surveiller le vent, l'orage, la pluie et la chaleur ; respecter strictement les seuils de
+  chaque attraction et suspendre l'exploitation lorsqu'ils sont dépassés.
+- En cas de risque électrique, mettre les visiteurs à l'abri et ne reprendre qu'après la
+  fin avérée du danger.
+
+## Posture et vigilance
+- Réaliser chaque geste de contrôle avec la même rigueur du premier au dernier visiteur,
+  quelle que soit l'affluence ou la fatigue.
+- Rester ambassadeur du parc : accueil chaleureux, information claire et fermeté bienveillante
+  sur les règles, qui ne s'opposent jamais mais se complètent.
+- Ne prendre un poste que si l'on y est habilité et apte ; signaler tout doute sur sa capacité
+  à tenir la fonction en sécurité.
+
 ## Escalade
 - Alerter immédiatement la maintenance pour toute anomalie technique, la sécurité pour les
   comportements dangereux, et les secours pour toute blessure.
