@@ -43,6 +43,24 @@ twine = "*"
 [tool.isort]
 profile = "black"
 
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.format]
+# Match Black's formatting style.
+indent-style = "space"
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint]
+ignore = ["E203"]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["lines_of_work"]
+
 [tool.flake8]
 ignore = ["E203", "E704", "W503"]
 max-line-length = 88
