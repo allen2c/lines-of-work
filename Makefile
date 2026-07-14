@@ -1,17 +1,14 @@
 # Development
-format:
-	@isort lines_of_work
-	@isort tests
-	@black lines_of_work
-	@black tests
+fmt:
+	@isort lines_of_work tests
+	@black lines_of_work tests
+	@ruff check --fix lines_of_work tests
 
 install:
 	poetry install --all-extras --all-groups
 
 update:
 	poetry update
-	poetry export --without-hashes -f requirements.txt --output requirements.txt
-	poetry export --without-hashes -f requirements.txt --output requirements-all.txt --all-extras --all-groups
 
 # Docs
 mkdocs:
