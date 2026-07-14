@@ -1,0 +1,1 @@
+# lines_of_work/industries/professional_scientific_tech/veterinary_services/haneul_animal_medical_center_reception_coordinator/__init__.py  # noqa: E501
