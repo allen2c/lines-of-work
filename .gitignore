@@ -3,6 +3,7 @@
 .env
 .env.production
 .envrc
+HANDOFF.md
 data
 poetry.lock
 
