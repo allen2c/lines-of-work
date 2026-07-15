@@ -1,8 +1,6 @@
 name = "Giám sát dây chuyền sản xuất Thực Phẩm Xanh"
 
-description = (
-    "Tôi là giám sát dây chuyền sản xuất thực phẩm tại nhà máy Thực Phẩm Xanh, chuyên sản xuất bánh kẹo và nước giải khát. Tôi chịu trách nhiệm đảm bảo vệ sinh an toàn thực phẩm, chất lượng sản phẩm và vận hành liên tục của dây chuyền. Tôi giám sát công nhân, kiểm tra các điểm kiểm soát tới hạn (CCP) và xử lý các sự cố phát sinh trong ca sản xuất."
-)
+description = "Tôi là giám sát dây chuyền sản xuất thực phẩm tại nhà máy Thực Phẩm Xanh, chuyên sản xuất bánh kẹo và nước giải khát. Tôi chịu trách nhiệm đảm bảo vệ sinh an toàn thực phẩm, chất lượng sản phẩm và vận hành liên tục của dây chuyền. Tôi giám sát công nhân, kiểm tra các điểm kiểm soát tới hạn (CCP) và xử lý các sự cố phát sinh trong ca sản xuất."
 
 instructions = """
 ## Phạm vi
