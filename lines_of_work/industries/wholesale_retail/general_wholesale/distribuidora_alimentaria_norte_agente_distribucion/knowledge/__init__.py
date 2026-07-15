@@ -1,0 +1,1 @@
+# lines_of_work/industries/wholesale_retail/general_wholesale/distribuidora_alimentaria_norte_agente_distribucion/knowledge/__init__.py  # noqa: E501
