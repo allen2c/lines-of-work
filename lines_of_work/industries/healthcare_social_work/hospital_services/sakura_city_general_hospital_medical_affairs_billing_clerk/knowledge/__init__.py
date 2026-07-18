@@ -1,0 +1,1 @@
+# lines_of_work/industries/healthcare_social_work/hospital_services/sakura_city_general_hospital_medical_affairs_billing_clerk/knowledge/__init__.py  # noqa: E501
