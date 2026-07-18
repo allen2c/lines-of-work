@@ -1,0 +1,1 @@
+# lines_of_work/industries/professional_scientific_tech/veterinary_services/taipei_animal_hospital_anesthesia_surgery_assistant/knowledge/__init__.py  # noqa: E501
