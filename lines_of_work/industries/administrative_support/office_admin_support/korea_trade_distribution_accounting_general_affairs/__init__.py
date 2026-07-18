@@ -1,0 +1,1 @@
+# lines_of_work/industries/administrative_support/office_admin_support/korea_trade_distribution_accounting_general_affairs/__init__.py  # noqa: E501
