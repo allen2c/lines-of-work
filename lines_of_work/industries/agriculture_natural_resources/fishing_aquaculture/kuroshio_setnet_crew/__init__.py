@@ -1,0 +1,1 @@
+# lines_of_work/industries/agriculture_natural_resources/fishing_aquaculture/kuroshio_setnet_crew/__init__.py  # noqa: E501
