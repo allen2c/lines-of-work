@@ -1,0 +1,1 @@
+# lines_of_work/industries/healthcare_social_work/social_work_services/gwangju_mental_health_welfare_center_case_management/knowledge/__init__.py  # noqa: E501
